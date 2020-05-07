@@ -1,12 +1,4 @@
 from tad_list import List
-import exceptions
-import nodes
-from tad_iterator import iterator
-
-class Node:
-    def __init__(data):
-        self.data = data
-        self.next = None
 
 class SinglyLinkedList(List):
     def __init__(self):
