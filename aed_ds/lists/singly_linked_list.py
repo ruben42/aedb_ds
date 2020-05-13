@@ -1,4 +1,7 @@
-from tad_list import List
+from .tad_list import List
+from ..exceptions import *
+from .nodes import SingleListNode
+from .singly_linked_list_iterator import SinglyLinkedListIterator
 
 class SinglyLinkedList(List):
     def __init__(self):
@@ -15,14 +18,14 @@ class SinglyLinkedList(List):
         count = 0
         while node:
             count += 1
-            node = node.next
+            node = node.get_next()
         return count
 
     # Returns the first element of the list.
     # Throws EmptyListException.
     def get_first(self):
         try:
-            return self.head.data
+            return self.head
         except:
             raise EmptyListException()        
 
@@ -30,7 +33,7 @@ class SinglyLinkedList(List):
     # Throws EmptyListException.
     def get_last(self):
         try:
-            return self.tail.data
+            return self.tail
         except:
             raise EmptyListException()           
 
@@ -51,27 +54,26 @@ class SinglyLinkedList(List):
     # or -1 if the specified element does not
     # occur in the list.
     def find(self, element):
-        count = 0
         node = self.head
-        while node:
-            if node.data == element:
-                return count
-            node = node.next
-            count += 1
+        position = 0
+        while position <= self.size() -1:
+            if node.get_element() == element:
+                return position
+            node = node.get_next()
+            position += 1
         return -1         
 
     # Inserts the specified element at the first position in the list.
     def insert_first(self, element):
-        node = Node(element)
-        node.next = self.head
-        self.head = node
+        #node = SingleListNode(element, None)
+        #self.head = node
         if not self.tail:
             self.tail = self.head       
 
     # Inserts the specified element at the last position in the list.
     def insert_last(self, element):
-        node = Node(element)
-        self.tail.next = node
+        node = SingleListNode(element, None)
+        self.tail = node
         if not self.head:
             self.head = self.tail
         self.tail = node    
@@ -104,8 +106,8 @@ class SinglyLinkedList(List):
         if self.is_empty():
             raise EmptyListException()
         node = self.head
-        self.head = node.next
-        return node.data      
+        self.head = node.get_next()
+        return node.get_element()      
 
     # Removes and returns the element at the last position in the list.
     # Throws EmptyListException.
@@ -113,13 +115,13 @@ class SinglyLinkedList(List):
         if self.is_empty():
             raise EmptyListException()
         node = self.tail
-        _node = self.head
-        while _node:
-            if _node.next == node:
-                _node.next = None
+        current = self.head
+        while current:
+            if current.get_next() == node:
+                current.get_next(None)
                 self.tail = _node
-            _node = _node.next
-        return node.data                          
+            current = current.get_next()
+        return node.get_element()                          
     
     # Removes and returns the element at the specified position in the list.
     # Range of valid positions: 0, ..., size()-1.
@@ -138,12 +140,9 @@ class SinglyLinkedList(List):
     
     # Removes all elements from the list.
     def make_empty(self):
-        del self.data
+        del self.head
 
     # Returns an iterator of the elements in the list (in proper sequence).
     def iterator(self):
-        node = self.head
-        while node:
-            yield node.data
-            node = node.next
+        return SinglyLinkedListIterator(self)
     

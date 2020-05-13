@@ -60,7 +60,7 @@ class TestSinglyLinkedList(unittest.TestCase):
         self.list.insert_first("element")
         self.assertEqual(self.list.get_first(), "element")
 
-    def test_insert_flast(self):
+    def test_insert_last(self):
         self.list.insert_first("element")
         self.assertEqual(self.list.get_last(), "element")
         self.list.make_empty()
@@ -91,5 +91,11 @@ class TestSinglyLinkedList(unittest.TestCase):
             self.list.remove(6)
         self.assertEqual(self.list.remove(0), "element 1")
 
-    def test_make_empty(self):pass
-    def test_iterator(self):pass
+    def test_make_empty(self):
+        self.assertTrue(self.list.make_empty())
+        self.add_elements(1)
+        self.assertFalse(self.list.make_empty())
+        self.remove_elements(1)
+
+    def test_iterator(self):
+        pass
