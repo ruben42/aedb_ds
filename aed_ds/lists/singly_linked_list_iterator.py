@@ -3,9 +3,9 @@ from ..exceptions import *
 from .nodes import SingleListNode
 
 class SinglyLinkedListIterator(Iterator):
-    def __init__(self):
-        self.first_element = first_element
-        self.next_element = next_element
+    def __init__(self, element):
+        self.first_element = element
+        self.next_element = element
 
     # Returns true iff the iteration has more elements.
     # In other words, returns true next would return an element rather than throwing an exception.
@@ -25,5 +25,5 @@ class SinglyLinkedListIterator(Iterator):
 
     # Restarts the iteration. After rewind, if the iteration is not empty, next will return the first element in the iteration.
     def rewind(self):
-        self.next_element = first_element
+        self.next_element = self.first_element
 
