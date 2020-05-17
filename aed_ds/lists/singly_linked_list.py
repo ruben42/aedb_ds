@@ -16,10 +16,14 @@ class SinglyLinkedList(List):
     def size(self):
         node = self.head
         count = 0
+        if self.head == None:
+            count = 0
+            return count
         while node:
             count += 1
             node = node.get_next()
         return count
+        
 
     # Returns the first element of the list.
     # Throws EmptyListException.
@@ -67,16 +71,20 @@ class SinglyLinkedList(List):
     def insert_first(self, element):
         #node = SingleListNode(element, None)
         #self.head = node
-        if not self.tail:
-            self.tail = self.head       
+        new_node = SingleListNode(element, None)
+        new_node.next_node = self.head
+        self.head = new_node    
 
     # Inserts the specified element at the last position in the list.
     def insert_last(self, element):
-        node = SingleListNode(element, None)
-        self.tail = node
-        if not self.head:
-            self.head = self.tail
-        self.tail = node    
+        new_node = SingleListNode(element, None)
+        if self.head is None:
+            self.head = new_node
+            return self.head
+        last = self.head
+        while(last.next_node):
+            last = last.next_node
+        last.next_node = new_node    
 
     # Inserts the specified element at the specified position in the list.
     # Range of valid positions: 0, ..., size().
@@ -112,16 +120,22 @@ class SinglyLinkedList(List):
     # Removes and returns the element at the last position in the list.
     # Throws EmptyListException.
     def remove_last(self):
-        if self.is_empty():
+        if self.head == None:
             raise EmptyListException()
-        node = self.tail
-        current = self.head
-        while current:
-            if current.get_next() == node:
-                current.get_next(None)
-                self.tail = _node
-            current = current.get_next()
-        return node.get_element()                          
+            if self.tail == last_node:
+                last_node = None
+                return last_node
+        #if self.is_empty():
+            #raise EmptyListException()
+        #node = self.tail
+        #_node = None
+        #current = self.head
+        #while current:
+            #if current.get_next() == node:
+                #current.get_next(None)
+                #self.tail = _node  
+            #current = current.get_next()
+        #return node.get_element()                          
     
     # Removes and returns the element at the specified position in the list.
     # Range of valid positions: 0, ..., size()-1.
