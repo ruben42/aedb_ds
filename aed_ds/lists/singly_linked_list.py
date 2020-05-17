@@ -13,17 +13,21 @@ class SinglyLinkedList(List):
         return self.head == None
 
     # Returns the number of elements in the list.
-    def size(self):
-        node = self.head
+    def size(self):  
+        node1 = self.head
+        node2 = self.tail
         count = 0
         if self.head == None:
             count = 0
-            return count
-        while node:
+            return count    
+        while node1:
             count += 1
-            node = node.get_next()
+            node1 = node1.get_next()
         return count
-        
+        while node2:
+            count -= 1
+            node2 = node2.get_next()
+        return count    
 
     # Returns the first element of the list.
     # Throws EmptyListException.
@@ -59,11 +63,12 @@ class SinglyLinkedList(List):
     # occur in the list.
     def find(self, element):
         node = self.head
+        next_node = 0
         position = 0
-        while position <= self.size() -1:
-            if node.get_element() == element:
+        while position <= self.is_empty():
+            if node == element:
                 return position
-            node = node.get_next()
+            node = next_node
             position += 1
         return -1         
 
@@ -154,7 +159,7 @@ class SinglyLinkedList(List):
     
     # Removes all elements from the list.
     def make_empty(self):
-        del self.head
+        del self.count
 
     # Returns an iterator of the elements in the list (in proper sequence).
     def iterator(self):

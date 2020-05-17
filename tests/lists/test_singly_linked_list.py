@@ -68,7 +68,20 @@ class TestSinglyLinkedList(unittest.TestCase):
         self.assertNotEqual(self.list.get_last(), "element")
         self.list.insert_last("element")
         self.assertEqual(self.list.get_last(), "element")
-    
+
+    def test_insert(self): pass
+        #with self.assertRaises(InvalidPositionException):
+            #self.list.insert("element X", 42)
+        #self.list.insert("element 1", 0)
+        #self.assertEqual(self.list.get_first(), "element 1")
+        #self.add_elements(4, shift=1)
+        #self.list.insert("element X", 2)
+        #self.assertEqual(self.list.get(2), "element X")
+        #self.list.insert("last element", self.list.size())
+        #self.assertEqual(self.list.get_last(), "last element")
+        #with self.assertRaises(InvalidPositionException):
+            #self.list.insert("element bean", 42)
+
     def test_remove_first(self):
         with self.assertRaises(EmptyListException):
             self.list.remove_first()
@@ -91,11 +104,13 @@ class TestSinglyLinkedList(unittest.TestCase):
             self.list.remove(6)
         self.assertEqual(self.list.remove(0), "element 1")
 
-    def test_make_empty(self):
-        self.assertTrue(self.list.make_empty())
-        self.add_elements(1)
-        self.assertFalse(self.list.make_empty())
-        self.remove_elements(1)
+    def test_make_empty(self): pass
+        #self.assertTrue(self.list.is_empty())
+        #self.add_elements(5)
+        #self.assertFalse(self.list.is_empty())
+        #self.list.make_empty()
+        #self.assertTrue(self.list.is_empty())
 
-    def test_iterator(self):
-        pass
+    def test_iterator(self): pass
+        #self.assertIsInstance(self.list.iterator(), Iterator)
+        #self.assertIsInstance(self.list.iterator(), SinglyLinkedListIterator)
