@@ -104,12 +104,12 @@ class TestSinglyLinkedList(unittest.TestCase):
             self.list.remove(6)
         self.assertEqual(self.list.remove(0), "element 1")
 
-    def test_make_empty(self): pass
-        #self.assertTrue(self.list.is_empty())
-        #self.add_elements(5)
-        #self.assertFalse(self.list.is_empty())
-        #self.list.make_empty()
-        #self.assertTrue(self.list.is_empty())
+    def test_make_empty(self): 
+        self.assertTrue(self.list.is_empty())
+        self.add_elements(5)
+        self.assertFalse(self.list.is_empty())
+        self.list.make_empty()
+        self.assertTrue(self.list.is_empty())
 
     def test_iterator(self): pass
         #self.assertIsInstance(self.list.iterator(), Iterator)

@@ -13,21 +13,20 @@ class SinglyLinkedList(List):
         return self.head == None
 
     # Returns the number of elements in the list.
-    def size(self):  
+    def size(self): 
         node1 = self.head
         node2 = self.tail
         count = 0
-        if self.head == None:
-            count = 0
+        if count == 0:
             return count    
         while node1:
             count += 1
             node1 = node1.get_next()
-        return count
+            return count
         while node2:
             count -= 1
             node2 = node2.get_next()
-        return count    
+            return count    
 
     # Returns the first element of the list.
     # Throws EmptyListException.
@@ -118,18 +117,24 @@ class SinglyLinkedList(List):
     def remove_first(self):
         if self.is_empty():
             raise EmptyListException()
-        node = self.head
-        self.head = node.get_next()
-        return node.get_element()      
+        first_node = self.head
+        count = 0
+        if self.head == first_node:
+            first_node = None
+            count += 1
+            return first_node      
 
     # Removes and returns the element at the last position in the list.
     # Throws EmptyListException.
     def remove_last(self):
-        if self.head == None:
+        if self.is_empty():
             raise EmptyListException()
-            if self.tail == last_node:
-                last_node = None
-                return last_node
+        last_node = self.tail
+        count = 0
+        if self.tail == last_node:
+            last_node = None
+            count -= 1
+            return last_node
         #if self.is_empty():
             #raise EmptyListException()
         #node = self.tail
@@ -159,7 +164,9 @@ class SinglyLinkedList(List):
     
     # Removes all elements from the list.
     def make_empty(self):
-        del self.count
+        self.head = None
+        self.tail = None
+        count = 0
 
     # Returns an iterator of the elements in the list (in proper sequence).
     def iterator(self):
