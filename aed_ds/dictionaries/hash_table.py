@@ -21,8 +21,12 @@ class HashTable(Dictionary):
     def is_full(self):
         return self.num_elements == self.array_size
 
-    def get(self, k): pass
-
+    def get(self, k):
+        if self.has_key() == True:
+            return current_item.get_value()
+        else:
+            raise NoSuchElementException()    
+    
     def insert(self, k, v):
         # Check if it has key
         if self.has_key(k):
@@ -38,15 +42,51 @@ class HashTable(Dictionary):
         # Update the number of elements
         self.num_elements += 1    
 
-    def update(self, k, v): pass
+    def update(self, k, v):
+        if self.has_key() == True:
+            current_item.set_value(v)
+        else:
+            raise NoSuchElementException()        
 
-    def remove(self, k): pass
+    def remove(self, k):
+        if not self.has_key(k):
+            raise NoSuchElementException()
 
-    def keys(self): pass
+        idx = self.hash_function(k)
+        it = self.table[idx].iterator()
+        b = 0 
+        while it.has_next():
+            current_item = it.next()
+            if current_item.get_key() == k:
+                current_item.remove(b)
+            b += 1        
 
-    def values(self): pass
+    def keys(self):
+        keys_list = SinglyLinkedList()
+        for i in range(self.array_size):
+            it = self.table[i].iterator()
+            while it.has_next():
+                current_item = it.next()
+                keys_list.insert_last(current_item.get_key())
+        return keys_list        
 
-    def items(self): pass
+    def values(self):
+        values_list = SinglyLinkedList()
+        for i in range(self.array_size):
+            it = self.table[i].iterator()
+            while it.has_next():
+                current_item = it.next()
+                values_list.insert_last(current_item.get_value())
+        return values_list   
+            
+    def items(self):
+        items_list = SinglyLinkedList()
+        for i in range(self.array_size):
+            it = self.table[i].iterator()
+            while it.has_next():
+                current_item = it.next()
+                items_list.insert_last(current_item)
+        return items_list   
 
     def hash_function(self, k):
         return sum([ord(c) for c in k]) % self.array_size
