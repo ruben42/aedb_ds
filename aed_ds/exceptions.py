@@ -27,3 +27,11 @@ class FullQueueException(Exception):
 
 class DuplicatedKeyException(Exception):
     pass
+
+
+class EmptyDictionaryException(Exception):
+    pass
+
+
+class EmptyTreeException(Exception):
+    pass
