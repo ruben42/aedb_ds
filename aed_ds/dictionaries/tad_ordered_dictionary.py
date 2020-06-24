@@ -8,7 +8,7 @@ class OrderedDictionary(Dictionary):
     @abstractmethod
     def iterator(self): pass
 
-    # Returns the element with the smallest key
+    #Returns the element with the smallest key
     @abstractmethod
     def get_min_element(self): pass
 
