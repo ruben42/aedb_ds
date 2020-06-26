@@ -5,7 +5,6 @@ from aed_ds.exceptions import NoSuchElementException, DuplicatedKeyException, \
     EmptyTreeException
 from aed_ds.tad_iterator import Iterator
 
-
 class TestBinarySearchTree(unittest.TestCase):
     def setUp(self):
         self.tree = BinarySearchTree()
@@ -20,10 +19,6 @@ class TestBinarySearchTree(unittest.TestCase):
         for i in range(quantity):
             k = i+1+shift
             self.tree.remove(k)
-
-    def remove_elements(self, quantity):
-        for _ in range(quantity):
-            self.list.remove_last()
 
     def test_size(self):
         self.assertEqual(self.tree.size(), 0)
@@ -92,7 +87,7 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertEqual(self.tree.values().get(4).get_key(), 5)
 
     def test_iterator(self):
-        self.assertIsInstance(self.iterator(), Iterator)
+        self.assertIsInstance(self.tree.iterator(), Iterator)
 
     def test_get_min_element(self):
         with self.assertRaises(EmptyTreeException):

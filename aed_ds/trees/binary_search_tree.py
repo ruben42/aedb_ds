@@ -3,6 +3,8 @@ from ..dictionaries.tad_ordered_dictionary import OrderedDictionary
 from ..exceptions import DuplicatedKeyException, NoSuchElementException, \
     EmptyDictionaryException, EmptyTreeException
 from .nodes.binary_nodes import BinarySearchTreeNode
+from ..lists.singly_linked_list import SinglyLinkedList
+from ..lists.singly_linked_list_iterator import SinglyLinkedListIterator
 
 class BinarySearchTree(OrderedDictionary, Tree):
     def __init__(self):
@@ -69,19 +71,86 @@ class BinarySearchTree(OrderedDictionary, Tree):
                 
     # Removes the key k, and the value associated with it.
     # Throws NoSuchElementException
-    def remove(self, k): pass 
-
+    def remove(self, k):
+        if self.root == None:
+            return False
+        atual = self.root
+        father = self.root
+        left_child = True
+        while atual.get_key() != k:
+            father = atual
+            if k < atual.get_key():
+                atual.left_child
+                left_child = True
+            else:
+                atual = atual.right_child
+                left_child = False
+            if atual == None:
+                return False
+        if atual.left_child == None and atual.right_child == None:
+            if atual == self.root:
+                self.root = None
+            else:
+                if left_child:
+                    father.left_child = None
+                else:
+                    father.right_child = None
+        elif atual.right_child == None:
+            if atual == self.root:
+                self.root = atual.left_child
+            else:
+                if left_child:
+                    father.left_child = atual.left_child
+                else:
+                    father.right_child = atual.left_child
+        elif atual.left_child == None:
+            if atual == self.root:
+                self.root = atual.right_child
+            else:
+                if left_child:
+                    father.left_child = atual.right_child
+                else:
+                    father.right_child = atual.right_child
+        
     # Returns a List with all the keys in the dictionary.
-    def keys(self): pass
+    def keys(self):
+        keys_list = SinglyLinkedList()
+        self._keys(self.root, keys_list)
+        return keys_list
+    
+    def _keys(self, root, list):
+         if root != None:
+            self._keys(root.get_left_child(), list)
+            list.insert_last(root.get_key())
+            self._keys(root.get_right_child(), list)
 
     # Returns a List with all the values in the dictionary.
-    def values(self): pass
+    def values(self):
+        values_list = SinglyLinkedList()
+        self._values(self.root, values_list)
+        return values_list
 
+    def _values(self, root, list):
+         if root != None:
+            self._values(root.get_left_child(), list)
+            list.insert_last(root.get_element())
+            self._values(root.get_right_child(), list)
+    
     # Returns a List with all the key value pairs in the dictionary.
-    def items(self): pass
+    def items(self):
+        items_list = SinglyLinkedList()
+        self._items(self.root, items_list)
+        return items_list
 
+    def _items(self, root, list):
+         if root != None:
+            self._items(root.get_left_child(), list)
+            list.insert_last(root)
+            self._items(root.get_right_child(), list)
+            
     # Returns an iterator of the elements in the dictionary
-    def iterator(self): pass
+    def iterator(self):
+        return SinglyLinkedListIterator(self)
 
     # Returns the element with the smallest key
     # Throws EmptyTreeException
@@ -112,8 +181,7 @@ class BinarySearchTree(OrderedDictionary, Tree):
     def get_root(self):
         if self.is_empty():
             raise EmptyTreeException()
-        else:
-            return self.root.get_element()
+        return self.root.get_element() 
             
     # Returns the height of the tree
     # Throws EmptyTreeException
@@ -136,8 +204,6 @@ class BinarySearchTree(OrderedDictionary, Tree):
         
     # Returns True if the tree is empty
     def is_empty(self):
-        if self.num_elements == 0:
-            return True
-        return False    
+        return self.root == None     
 
     
